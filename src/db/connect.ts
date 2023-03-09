@@ -1,7 +1,7 @@
 import { Collection, Db, MongoClient } from "mongodb";
 import { Gateway } from "../interfaces/gateway";
 
-const MONGO_URI = 'mongodb+srv://m001-student:testdb12@sandbox.xwjuiuq.mongodb.net/?retryWrites=true&w=majority'
+const MONGO_URI:string = process.env['CONNECTION_STRING']?process.env['CONNECTION_STRING']:'';
 const GATEWAYS_COLLECTION_NAME = 'gateway';
 
 
