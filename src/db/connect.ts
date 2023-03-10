@@ -1,8 +1,6 @@
 import { Collection, Db, MongoClient } from "mongodb";
 import { Gateway } from "../interfaces/gateway";
-
-const MONGO_URI:string = process.env['CONNECTION_STRING']?process.env['CONNECTION_STRING']:'';
-const GATEWAYS_COLLECTION_NAME = 'gateway';
+import { GATEWAYS_COLLECTION_NAME, MONGO_URI } from "./constants";
 
 
 let db: Db;
@@ -12,7 +10,7 @@ let m=0;
 
 export async function connectToDatabase() {
   client = await MongoClient.connect(MONGO_URI);
-  console.log(`connecting to db ${++m}`);
+  console.log(`connecting to db ${GATEWAYS_COLLECTION_NAME} ${++m}`);
   db = client.db();
   gatewaysCollection = db.collection(GATEWAYS_COLLECTION_NAME);
 }
