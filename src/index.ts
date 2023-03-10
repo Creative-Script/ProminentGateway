@@ -1,5 +1,8 @@
 import express from 'express';
 import { client, connectToDatabase } from './db/connect';
+import swaggerUi from 'swagger-ui-express';
+import {swaggerDocument} from './swagger';
+
 import { createGateway } from './views/createGateway';
 import { deleteGateway } from './views/deleteGateway';
 import { getAllGateways } from './views/getAllGateways';
@@ -8,6 +11,7 @@ import { updateGateway } from './views/updateGateway';
 
 const app = express();
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 async function startServer() {

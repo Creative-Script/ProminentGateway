@@ -12,7 +12,7 @@ let m=0;
 
 export async function connectToDatabase() {
   client = await MongoClient.connect(MONGO_URI);
-  console.log(m++);
+  console.log(`connecting to db ${++m}`);
   db = client.db();
   gatewaysCollection = db.collection(GATEWAYS_COLLECTION_NAME);
 }
