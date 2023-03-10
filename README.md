@@ -1,5 +1,6 @@
 # ProminentGateway
 
+[![Coverage Status](https://coveralls.io/repos/github/Creative-Script/ProminentGateway/badge.svg)](https://coveralls.io/github/Creative-Script/ProminentGateway) 
 Gateway management portal
 
 ### Set up
