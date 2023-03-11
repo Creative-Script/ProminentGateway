@@ -3,6 +3,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/Creative-Script/ProminentGateway/badge.svg?branch=dev)](https://coveralls.io/github/Creative-Script/ProminentGateway?branch=dev) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Creative-Script/ProminentGateway/tree/dev.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Creative-Script/ProminentGateway/tree/dev)
 Gateway management portal
 
+### Technologies
+
+- Node.js
+- Express
+- MongoDb
+
 ### Set up
 
 The set up will require you to  use the  terminal or power shell.
@@ -13,11 +19,11 @@ The set up will require you to  use the  terminal or power shell.
 
 2. Add a .env file
 
+```
 CONNECTION_STRING can be configured to your local database server,
 COLLECTION_NAME will be the prod collection.
 TEST_CONNECTION_NAME can be created and will be run during tests
-
-]
+```
 
 3. Run the application
 

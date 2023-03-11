@@ -22,7 +22,7 @@ async function startServer() {
   app.put('/gateways/:id',validateGateway, updateGateway);
   app.delete('/gateways/:id', deleteGateway);
   app.get('/gateways', getAllGateways);
-  app.get('/gateways/:id/peripheralDevices');
+  app.get('/gateways/:id/peripheralDevices', );
   app.post('/gateways/:id/peripheralDevices',validatePeripheralDevice);
   app.put('/gateways/:id/peripheralDevices/:uid',validatePeripheralDevice,);
   app.delete('/gateways/:id/peripheralDevices/:uid');
