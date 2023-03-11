@@ -15,7 +15,7 @@ export const swaggerDocument = {
 
   host: "localhost:3000",
   basePath: "",
-  schemes: ["http"],
+  schemes: ["http", "https"],
   paths: {
     "/gateways": {
       get: {
@@ -36,7 +36,7 @@ export const swaggerDocument = {
             description: "Gateway object",
             required: true,
             schema: {
-              $ref: "#/definitions/Gateway",
+              $ref: "#/definitions/GatewayAdd",
             },
           },
         ],
@@ -61,7 +61,7 @@ export const swaggerDocument = {
             description: "Gateway object",
             required: true,
             schema: {
-              $ref: "#/definitions/Gateway",
+              $ref: "#/definitions/GatewayUpdate",
             },
           },
         ],
@@ -77,6 +77,87 @@ export const swaggerDocument = {
           name: "id",
           in: "path",
           description: "Gateway id",
+          required: true,
+          type: "string",
+        },
+      ],
+    },
+    "/gateways/{id}/peripheralDevices": {
+      get: {
+        summary: "Get all peripherals in one gateway",
+        responses: {
+          "200": {},
+        },
+      },
+      post: {
+        summary: "Create a peripheral device inside a gateway",
+        responses: {
+          "201": {},
+        },
+        parameters: [
+          {
+            name: "Peripheral",
+            in: "body",
+            description: "Peripheral device object",
+            required: true,
+            schema: {
+              $ref: "#/definitions/PeripheralDeviceUpdate",
+            },
+          },
+        ],
+      },
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          description: "Gateway id",
+          required: true,
+          type: "string",
+        },
+      ],
+    },
+    "/gateways/{id}/peripheralDevices/{uid}": {
+      put: {
+        summary: "Update a peripheral in a gateway",
+        responses: {
+          "200": {},
+        },
+        parameters: [
+          {
+            name: "Peripheral",
+            in: "body",
+            description: "Peripheral device object",
+            required: true,
+            schema: {
+              $ref: "#/definitions/PeripheralDeviceUpdate",
+            },
+          },
+        ],
+      },
+      get: {
+        summary: "Get a peripheral from a gateway",
+        responses: {
+          "200": {},
+        },
+      },
+      delete: {
+        summary: "Delete a peripheral from a gateway",
+        responses: {
+          "200": {},
+        },
+      },
+      parameters: [
+        {
+          name: "id",
+          in: "path",
+          description: "Gateway id",
+          required: true,
+          type: "string",
+        },
+        {
+          name: "uid",
+          in: "path",
+          description: "Peripheral device id",
           required: true,
           type: "string",
         },
@@ -98,13 +179,81 @@ export const swaggerDocument = {
         },
         peripheralDevices: {
           type: "array",
+          items: {
+            $ref: "#/definitions/PeripheralDevice",
+          },
         },
-        name: {
+      },
+      required: ["ipv4Address", "serialNumber"],
+    },
+    GatewayAdd: {
+      type: "object",
+      properties: {
+        serialNumber: {
+          type: "string",
+        },
+        ipv4Address: {
+          type: "string",
+        },
+        peripheralDevices: {
+          type: "array",
+          items: {
+            $ref: "#/definitions/PeripheralDeviceUpdate",
+          },
+        },
+      },
+      required: ["ipv4Address", "serialNumber"],
+    },
+    GatewayUpdate: {
+      type: "object",
+      properties: {
+        serialNumber: {
+          type: "string",
+        },
+        ipv4Address: {
           type: "string",
         },
       },
-      required: ["name", "ipv4Address", "serialNumber"],
+      required: ["ipv4Address", "serialNumber"],
     },
+    PeripheralDevice: {
+      type: "object",
+      properties: {
+        uid: {
+          type: "number",
+        },
+        vendor: {
+          type: "string",
+        },
+        dateCreated: {
+          type: "string",
+        },
+        status: {
+          type: "string",
+          enum: ["offline", "online"],
+        },
+      },
+      required: ["vendor", "status"],
+    },
+    PeripheralDeviceUpdate: {
+      type: "object",
+      properties: {
+        vendor: {
+          type: "string",
+        },
+        dateCreated: {
+          type: "string",
+        },
+        status: {
+          type: "string",
+          enum: ["offline", "online"],
+        },
+      },
+      required: ["vendor", "status"],
+    },
+  },
+  ui: {
+    title: "Prominent Gateways API",
   },
 };
 
