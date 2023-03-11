@@ -5,8 +5,8 @@ export async function getGateway(req: Request, res: Response) {
   const { id } = req.params;
   const gateway = await gatewaysCollection.findOne({ _id: new ObjectId(id) });
   if (!gateway) {
-    res.sendStatus(404);
+    return res.sendStatus(404);
   } else {
-    res.send(gateway);
+    return res.status(200).json(gateway);
   }
 }
