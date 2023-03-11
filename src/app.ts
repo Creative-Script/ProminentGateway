@@ -26,8 +26,8 @@ async function startServer() {
   app.post('/gateways/:id/peripheralDevices',validatePeripheralDevice);
   app.put('/gateways/:id/peripheralDevices/:uid',validatePeripheralDevice,);
   app.delete('/gateways/:id/peripheralDevices/:uid');
-  app.listen(3000, () => {
-    console.log('Server started on port 3000');
+  var listener = app.listen(3000,() => {
+    console.log(`Server started on port ${listener.address()['port']}`);
   });
 }
 
