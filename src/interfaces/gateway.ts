@@ -14,3 +14,8 @@ export interface Gateway {
   ipv4Address: string;
   peripheralDevices: PeripheralDevice[];
 }
+
+export interface UpdateGateway {
+  serialNumber: string;
+  ipv4Address: string;
+}
