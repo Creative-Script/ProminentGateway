@@ -14,6 +14,9 @@ export async function connectToDatabase() {
   db = client.db();
   gatewaysCollection = db.collection(GATEWAYS_COLLECTION_NAME);
 }
+export async function emptyDatabase() {
+  gatewaysCollection.deleteMany({})
+}
 // await connectToDatabase();
 export {
     db,client,gatewaysCollection
