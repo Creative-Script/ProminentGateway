@@ -22,8 +22,9 @@ The set up will require you to  use the  terminal or power shell.
 ```
 CONNECTION_STRING can be configured to your local database server,
 COLLECTION_NAME will be the prod collection.
-TEST_CONNECTION_NAME can be created and will be run during tests
+TEST_COLLECTION_NAME can be created and will be run during tests
 ```
+NB: the `TEST_COLLECTION_NAME` collection will be emptied after all tests are run.
 
 3. Run the application
 
