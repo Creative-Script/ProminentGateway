@@ -1,25 +1,30 @@
-import { Request,Response } from "express";
+import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import { gatewaysCollection } from "../db/connect";
-import { Gateway } from "../interfaces/gateway";
+import { UpdateGateway } from "../interfaces/gateway";
 
 export async function updateGateway(req: Request, res: Response) {
   const { id } = req.params;
-  const { serialNumber, name, ipv4Address, peripheralDevices } = req.body;
-  const gateway: Gateway = {
-    _id: new ObjectId(id),
+  const { serialNumber, ipv4Address } = req.body;
+  const gateway: UpdateGateway = {
     serialNumber,
-    name,
     ipv4Address,
-    peripheralDevices,
   };
+  const docId = new ObjectId(id);
+  const otherExisting = await gatewaysCollection.findOne({
+    _id: { $ne: docId },
+    $or: [gateway],
+  });
+  if (otherExisting) {
+    return res.status(400).json({ message: "already exists" });
+  }
   const result = await gatewaysCollection.updateOne(
-    { _id: gateway._id },
+    { _id: docId },
     { $set: gateway }
   );
   if (result.modifiedCount === 0) {
-    res.sendStatus(404);
+    return res.sendStatus(404);
   } else {
-    res.send(gateway);
+    return res.send(gateway);
   }
 }
