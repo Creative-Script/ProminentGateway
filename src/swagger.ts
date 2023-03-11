@@ -3,7 +3,16 @@ export const swaggerDocument = {
   info: {
     title: "ProminentGateways",
     version: "1.0.0",
+    description:
+      "ProminentGateways is an API that manages Gateways and the peripheral devices attached to them. Find the repository on Github at https://github.com/Creative-Script/ProminentGateway",
+    author: "Patrick Fitz ",
+    contact: {
+      name: "Patrick Fitz",
+      url: "https://github.com/patrickf949",
+      email: "patrickf1290@gmail.com",
+    },
   },
+
   host: "localhost:3000",
   basePath: "",
   schemes: ["http"],
@@ -69,7 +78,7 @@ export const swaggerDocument = {
           in: "path",
           description: "Gateway id",
           required: true,
-          type:'string'
+          type: "string",
         },
       ],
     },
@@ -83,7 +92,6 @@ export const swaggerDocument = {
         },
         serialNumber: {
           type: "string",
-          
         },
         ipv4Address: {
           type: "string",
