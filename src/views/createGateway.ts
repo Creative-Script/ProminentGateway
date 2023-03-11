@@ -6,6 +6,7 @@ import { peripheralDevice } from "../requestSchema/gateway";
 import {
   deviceDateCreated,
   deviceStatus,
+  getMaxDeviceId,
   newDeviceCreation,
 } from "../utils/deviceHelpers";
 
@@ -44,7 +45,7 @@ async function assignUids(
   peripherals: PeripheralDevice[]
 ): Promise<PeripheralDevice[]> {
   const newPeripherals: PeripheralDevice[] = [];
-  let index = 1;
+  let index = await getMaxDeviceId()+1;
   peripherals.map(({ vendor, dateCreated, status }) => {
     if (newPeripherals.filter((item) => item.vendor === vendor).length === 0) {
       newPeripherals.push(

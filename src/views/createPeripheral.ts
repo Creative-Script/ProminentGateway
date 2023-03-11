@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { Request, Response } from "express";
 import { gatewaysCollection } from "../db/connect";
 import { Gateway, PeripheralDevice } from "../interfaces/gateway";
-import { newDeviceCreation } from "../utils/deviceHelpers";
+import { getMaxDeviceId, newDeviceCreation } from "../utils/deviceHelpers";
 
 export async function addPeripheralDevice(req: Request, res: Response) {
   const { id } = req.params;
@@ -46,14 +46,7 @@ async function createDevice(
   status: string
 ): Promise<PeripheralDevice> {
   
-  const devices = await gatewaysCollection.aggregate(
-    [
-      { $unwind: "$peripheralDevices" },
-      { $group: { _id: new ObjectId(gateway._id), maxUid: { $max: "$peripheralDevices.uid" } } },
-      { $project: { _id: 0, maxUid: 1 } },
-    ]
-  ).toArray()
-  const highestUid = devices.length>0?devices[0].maxUid:0;
+  const highestUid = await getMaxDeviceId();
   const newUid = highestUid + 1;
 
   return newDeviceCreation(newUid, vendor, dateCreated, status);
