@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "test": "jest --detectOpenHandles --forceExit --coverage",
-    "coveralls":"nyc report --reporter=text-lcov | coveralls"
+    "coveralls":"jest --detectOpenHandles --forceExit --coverage --coverageReporters=text-lcov | coveralls"
   },
   "dependencies": {
     "@types/express": "^4.17.17",
