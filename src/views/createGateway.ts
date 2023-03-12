@@ -2,37 +2,41 @@ import { ObjectId } from "mongodb";
 import { gatewaysCollection } from "../db/connect";
 import { Gateway, PeripheralDevice } from "../interfaces/gateway";
 import { Request, Response } from "express";
-import { peripheralDevice } from "../requestSchema/gateway";
 import {
-  deviceDateCreated,
-  deviceStatus,
   getMaxDeviceId,
   newDeviceCreation,
 } from "../utils/deviceHelpers";
 
 export async function createGateway(req: Request, res: Response) {
-  const { serialNumber, ipv4Address, peripheralDevices } = req.body;
+  try {
+    const { serialNumber, ipv4Address, peripheralDevices } = req.body;
 
-  const query = {
-    $or: [{ serialNumber }, { ipv4Address }],
-  };
-  const existing = await gatewaysCollection.find(query).toArray();
-  if (existing.length) {
-    return res.status(400).json({
-      message: "Gateway already exists with same ipv4address or serial number",
-    });
+    const query = {
+      $or: [{ serialNumber }, { ipv4Address }],
+    };
+    const existing = await gatewaysCollection.find(query).toArray();
+    if (existing.length) {
+      return res.status(400).json({
+        message:
+          "Gateway already exists with same ipv4address or serial number",
+      });
+    }
+    const gateway: Gateway = {
+      _id: new ObjectId(),
+      serialNumber,
+      name: await getNextName(),
+      ipv4Address,
+      peripheralDevices: await updatePeripherals(peripheralDevices),
+    };
+
+    await gatewaysCollection.insertOne(gateway);
+
+    return res.send(gateway);
+  } catch (error) {
+    console.log("error occured");
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-  const gateway: Gateway = {
-    _id: new ObjectId(),
-    serialNumber,
-    name: await getNextName(),
-    ipv4Address,
-    peripheralDevices: await updatePeripherals(peripheralDevices),
-  };
-
-  await gatewaysCollection.insertOne(gateway);
-
-  return res.send(gateway);
 }
 async function updatePeripherals(peripheralDevices: PeripheralDevice[]) {
   if (peripheralDevices && peripheralDevices.length > 0) {
@@ -45,7 +49,7 @@ async function assignUids(
   peripherals: PeripheralDevice[]
 ): Promise<PeripheralDevice[]> {
   const newPeripherals: PeripheralDevice[] = [];
-  let index = await getMaxDeviceId()+1;
+  let index = (await getMaxDeviceId()) + 1;
   peripherals.map(({ vendor, dateCreated, status }) => {
     if (newPeripherals.filter((item) => item.vendor === vendor).length === 0) {
       newPeripherals.push(

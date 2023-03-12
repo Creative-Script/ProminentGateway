@@ -17,6 +17,7 @@ import { addPeripheralDevice } from "./views/createPeripheral";
 import { deletePeripheral } from "./views/deletePeripheral";
 import { updatePeripheral } from "./views/updatePeripheral";
 import { getPeripheral } from "./views/getPeripheral";
+import errorHandler from "./utils/errorHandler";
 
 // start app
 const app = express();
@@ -24,14 +25,7 @@ app.use(express.json());
 // setup swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // setup error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-  res.status(statusCode).json({
-    message: err.message,
-    error: process.env.NODE_ENV === "production" ? {} : err.stack,
-  });
-});
+
 
 client;
 async function home(req: Request, res: Response) {
@@ -60,6 +54,7 @@ async function startServer() {
   app.delete("/gateways/:id/peripheralDevices/:uid", deletePeripheral);
   app.get("/gateways/:id/peripheralDevices/:uid", getPeripheral);
   // expose port
+  app.use(errorHandler);
   var listener = app.listen(3000, () => {
     console.log(`Server started on port ${listener.address()["port"]}`);
   });

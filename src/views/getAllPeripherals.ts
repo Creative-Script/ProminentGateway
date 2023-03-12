@@ -3,14 +3,20 @@ import { ObjectId } from "mongodb";
 import { Request, Response } from "express";
 
 export async function getAllPeripherals(req: Request, res: Response) {
-  const { id } = req.params;
-  const filter = { _id: new ObjectId(id) };
-  const projection = {
-    peripheralDevices: 1,
-    serialNumber: 1,
-  };
-  const { peripheralDevices } = await gatewaysCollection.findOne(filter, {
-    projection,
-  });
-  res.send(peripheralDevices);
+  try {
+    const { id } = req.params;
+    const filter = { _id: new ObjectId(id) };
+    const projection = {
+      peripheralDevices: 1,
+      serialNumber: 1,
+    };
+    const { peripheralDevices } = await gatewaysCollection.findOne(filter, {
+      projection,
+    });
+    return res.send(peripheralDevices);
+  } catch (error) {
+    console.log("error occured");
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
