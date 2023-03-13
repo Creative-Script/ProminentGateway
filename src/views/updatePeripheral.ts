@@ -15,8 +15,10 @@ export async function updatePeripheral(req: Request, res: Response) {
     const filterExists = {
       ...filter,
       peripheralDevices: {
-        uid: { $ne: docId },
-        $or: [{ vendor }, { status }],
+        $elemMatch:{
+          uid: { $ne: docId },
+          vendor, status 
+        }
       },
     };
     const otherExisting = await gatewaysCollection.findOne(filterExists);
@@ -46,8 +48,8 @@ export async function updatePeripheral(req: Request, res: Response) {
       return res.status(204).json({ message: "updated" });
     }
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error",error:error.message });
   }
 }

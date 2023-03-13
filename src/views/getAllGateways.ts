@@ -6,9 +6,8 @@ export async function getAllGateways(req: Request, res: Response) {
     const gateways = await gatewaysCollection.find().toArray();
     res.send(gateways);
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" , error:error.message});
   }
-  
 }

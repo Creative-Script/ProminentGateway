@@ -15,8 +15,8 @@ export async function getAllPeripherals(req: Request, res: Response) {
     });
     return res.send(peripheralDevices);
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error",error:error.message });
   }
 }

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create .env file
+        run: |
+          echo "DB_USERNAME=your-username" >> .env
+          echo "DB_PASSWORD=your-password" >> .env
+          # Add any other environment variables you need to set
+
+      - name: Source .env file and run tests
+        run: |
+          source .env
+          npm run test

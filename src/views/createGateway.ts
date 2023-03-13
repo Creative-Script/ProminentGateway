@@ -31,11 +31,11 @@ export async function createGateway(req: Request, res: Response) {
 
     await gatewaysCollection.insertOne(gateway);
 
-    return res.send(gateway);
+    return res.status(200).send(gateway);
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error",error:error.message });
   }
 }
 async function updatePeripherals(peripheralDevices: PeripheralDevice[]) {
@@ -71,7 +71,7 @@ async function getNextName(): Promise<string> {
     return `GW${(1).toString().padStart(8, "0")}`;
   }
 }
-function getNextGWId(currentId: string): string {
+export function getNextGWId(currentId: string): string {
   try {
     const matches = currentId.match(/\d+$/);
     if (!matches) {

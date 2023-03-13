@@ -20,8 +20,8 @@ export async function deletePeripheral(req: Request, res: Response) {
       return res.sendStatus(204);
     }
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error",error:error.message });
   }
 }

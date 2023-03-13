@@ -25,11 +25,13 @@ app.use(express.json());
 // setup swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // setup error handler
+let server;
 
-
-client;
+// client;
 async function home(req: Request, res: Response) {
-  res.status(200).json({ time: new Date(), api: "prominent gateways api" });
+  return res
+    .status(200)
+    .json({ time: new Date(), api: "prominent gateways api" });
 }
 async function startServer() {
   await connectToDatabase();
@@ -55,8 +57,8 @@ async function startServer() {
   app.get("/gateways/:id/peripheralDevices/:uid", getPeripheral);
   // expose port
   app.use(errorHandler);
-  var listener = app.listen(3000, () => {
-    console.log(`Server started on port ${listener.address()["port"]}`);
+  server = app.listen(3000, () => {
+    console.log(`Server started on port ${server.address()["port"]}`);
   });
 }
 
@@ -67,4 +69,4 @@ async function disconnectFromDatabase() {
   await client.close();
 }
 
-export { app, startServer, stopServer };
+export { app, startServer, stopServer, disconnectFromDatabase };

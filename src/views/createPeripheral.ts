@@ -39,9 +39,9 @@ export async function addPeripheralDevice(req: Request, res: Response) {
     await gatewaysCollection.updateOne(filter, updates);
     return res.send(newDevice);
   } catch (error) {
-    console.log("error occured");
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    //console.log("error occured");
+    //console.log(error);
+    return res.status(500).json({ message: "Internal Server Error",error:error.message });
   }
 }
 
