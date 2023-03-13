@@ -4,7 +4,7 @@ export const swaggerDocument = {
     title: "ProminentGateways",
     version: "1.0.0",
     description:
-      "ProminentGateways is an API that manages Gateways and the peripheral devices attached to them. Find the repository on Github at https://github.com/Creative-Script/ProminentGateway",
+      "ProminentGateways is an API that manages Gateways and the peripheral devices attached to them. Find the repository on Github at https://github.com/Creative-Script/ProminentGateway \nEnsure to select the right scheme.\nOn localhost  use http, \nand here in prod you can use https which is the default.",
     author: "Patrick Fitz ",
     contact: {
       name: "Patrick Fitz",
@@ -15,7 +15,7 @@ export const swaggerDocument = {
 
   host: "localhost:3000",
   basePath: "",
-  schemes: ["http", "https"],
+  schemes: ["https","http"],
   paths: {
     "/gateways": {
       get: {
