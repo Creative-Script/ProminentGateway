@@ -1,5 +1,5 @@
 name: Deploy to vercel on PR
-env:
+environment:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
   COLLECTION_NAME: ${{ secrets.COLLECTION_NAME }}
   TEST_COLLECTION_NAME:  ${{ secrets.TEST_COLLECTION_NAME }}
