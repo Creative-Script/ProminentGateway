@@ -1,16 +1,17 @@
 name: Deploy to vercel
-environment:
-  CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
-  COLLECTION_NAME: ${{ secrets.COLLECTION_NAME }}
-  TEST_COLLECTION_NAME:  ${{ secrets.TEST_COLLECTION_NAME }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 "on": 
   push:
     branches:
       -main
+  
 jobs:
+  environment:
+    CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+    COLLECTION_NAME: ${{ secrets.COLLECTION_NAME }}
+    TEST_COLLECTION_NAME:  ${{ secrets.TEST_COLLECTION_NAME }}
+    VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   build_and_preview:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
