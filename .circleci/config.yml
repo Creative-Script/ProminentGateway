@@ -14,17 +14,18 @@ jobs:
           destination: coverage
 
       - run: npm run coveralls
+      - run: npm run build
       - run: npm install vercel@latest
 
       - run: npx vercel pull --yes --environment=preview --token=${VERCEL_TOKEN}
       - run: npx vercel build --token=${VERCEL_TOKEN}
-      - run: npx vercel deploy --prebuilt --token=${VERCEL_TOKEN}
+      - run: npx vercel deploy --token=${VERCEL_TOKEN}  --force
   prod:
     
     docker:
       - image: circleci/node:14
     steps:
-      - checkoutprod
+      - checkout
       - run: npm install
       - run: npm test
       - store_artifacts:
@@ -32,20 +33,22 @@ jobs:
           destination: coverage
 
       - run: npm run coveralls
+      - run: npm run build
       - run: npm install vercel@latest
-
       - run: npx vercel pull --yes --environment=preview --token=${VERCEL_TOKEN}
       - run: npx vercel build --token=${VERCEL_TOKEN}
-      - run: npx vercel deploy --prebuilt --token=${VERCEL_TOKEN} --prod
+      - run: npx vercel deploy --prod --force
 
 workflows:
   build-and-test:
     jobs:
-      - test
+      - test:
           filters: # using regex filters requires the entire branch to match
             branches:
               only: dev
-      - prod
+  production:
+    jobs:
+      - prod:
           filters: # using regex filters requires the entire branch to match
             branches:
               only: main
