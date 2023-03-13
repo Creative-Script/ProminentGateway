@@ -23,7 +23,11 @@ import errorHandler from "./utils/errorHandler";
 const app = express();
 app.use(express.json());
 // setup swagger documentation
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+var options = {
+  customJs: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+  customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css",
+};
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument,options));
 // setup error handler
 let server;
 
