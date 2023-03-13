@@ -13,9 +13,9 @@ export const swaggerDocument = {
     },
   },
 
-  host: "localhost:3000",
-  basePath: "",
-  schemes: ["https","http"],
+  // host: "localhost:3000",
+  // basePath: "",
+  // schemes: ["https","http"],
   paths: {
     "/gateways": {
       get: {
