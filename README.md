@@ -1,6 +1,7 @@
 # ProminentGateway
 
 [![Coverage Status](https://coveralls.io/repos/github/Creative-Script/ProminentGateway/badge.svg?branch=main)](https://coveralls.io/github/Creative-Script/ProminentGateway?branch=main) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Creative-Script/ProminentGateway/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Creative-Script/ProminentGateway/tree/main)
+
 Gateway management portal
 
 ### Technologies
